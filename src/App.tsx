@@ -2,6 +2,7 @@ import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import LandingPageLayout from './components/Layout/LandingPage';
+import { Toaster } from './components/UI/shadcn/toaster';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           ))}
         </Routes>
       </BrowserRouter>
+      <Toaster/>
     </>
   )
 }
