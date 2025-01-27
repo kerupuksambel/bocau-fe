@@ -5,6 +5,7 @@ import LandingPageLayout from './components/Layout/LandingPage';
 
 
 function App() {
+  // TODO: routes separated in a new dedicated file
   const routes = [
     { path: '/', element: <Home />, name: 'Home', layout: LandingPageLayout }
 

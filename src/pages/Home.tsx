@@ -1,3 +1,4 @@
+import { getNonce, signNonce } from '@/api/auth';
 import { Icon } from '@iconify-icon/react';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { ethers } from 'ethers';
@@ -22,12 +23,19 @@ const Home = () => {
         await provider.send('eth_requestAccounts', []);
         const signer = await provider.getSigner();
         const signerAddress = await signer.getAddress();
+
+        const challenge = await getNonce(signerAddress);
+        console.log(`Challenge : ${challenge.msg}`);
+        const signedNonce = await signer.signMessage(challenge.msg);
+        const submitChallenge = await signNonce(signedNonce, signerAddress);
+        if(!submitChallenge.success) {
+            alert('Authentication failed.');
+            return;
+        }
+
         setAddress(signerAddress);
         setIsAuthenticated(true);
-        console.log(`Connected address : ${address}`);
     }
-
-    
     
     return (
         <div className='flex flex-col justify-center items-center'>
