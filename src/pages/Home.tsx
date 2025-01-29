@@ -4,6 +4,8 @@ import { MetaMaskInpageProvider } from '@metamask/providers';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast"
+import { useNavigate } from 'react-router-dom';
+import useAuthStore from '@/stores/authStore';
 
 declare global {
     interface Window {
@@ -12,8 +14,10 @@ declare global {
   }
 
 const Home = () => {
-    const [address, setAddress] = useState<string | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    // const [address, setAddress] = useState<string | null>(null);
+    // const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const auth = useAuthStore();
+    const navigate = useNavigate();
     const { toast } = useToast();
     const handleMetamaskAuth = async () => {
         if(! Object.getOwnPropertyNames(window).includes('ethereum')) {
@@ -29,9 +33,7 @@ const Home = () => {
         await provider.send('eth_requestAccounts', []);
         const signer = await provider.getSigner();
         const signerAddress = await signer.getAddress();
-
         const challenge = await getNonce(signerAddress);
-        console.log(`Challenge : ${challenge.msg}`);
         const signedNonce = await signer.signMessage(challenge.msg);
         const submitChallenge = await signNonce(signedNonce, signerAddress);
         if(!submitChallenge.success) {
@@ -43,11 +45,20 @@ const Home = () => {
             return;
         }
 
-        setAddress(signerAddress);
-        setIsAuthenticated(true);
+        auth.setAuth({
+            isAuthenticated: true,
+            address: signerAddress
+        })
+
+        // setAddress(signerAddress);
+        // setIsAuthenticated(true);
         toast({
             title: 'Success',
             description: 'Authentication successful.',
+        })
+
+        setTimeout(() => {
+            navigate('/user/dashboard');
         })
     }
     
@@ -55,8 +66,8 @@ const Home = () => {
         <div className='flex flex-col justify-center items-center'>
             <h1>Hi!</h1>
             {
-                isAuthenticated 
-                ?   <p>Welcome, <b>{address}</b></p> 
+                auth.auth.isAuthenticated 
+                ?   <p>Welcome, <b>{auth.auth.address}</b></p> 
                 :   <button onClick={handleMetamaskAuth} className='bg-primary text-white p-3 rounded-md flex items-center gap-2'>
                         <Icon icon="token-branded:metamask" className='text-2xl'/> Login with Metamask
                     </button>
