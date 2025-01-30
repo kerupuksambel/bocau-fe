@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface AuthProps {
     isAuthenticated: boolean,
     address: string,
+    token: string,
 }
 
 interface AuthStoreProps {
@@ -14,6 +15,7 @@ const useAuthStore = create<AuthStoreProps>((set) => ({
     auth: {
         isAuthenticated: false,
         address: '',
+        token: '',
     },
     setAuth: (newAuth) => {
         set(() => ({

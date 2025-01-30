@@ -2,7 +2,6 @@ import { getNonce, signNonce } from '@/api/auth';
 import { Icon } from '@iconify-icon/react';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { ethers } from 'ethers';
-import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast"
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '@/stores/authStore';
@@ -45,9 +44,21 @@ const Home = () => {
             return;
         }
 
+        console.log(submitChallenge)
+
+        if(!submitChallenge.token) {
+            toast({
+                title: 'Error',
+                description: 'Authentication failed.',
+                variant: 'destructive'
+            })
+            return;
+        }
+
         auth.setAuth({
             isAuthenticated: true,
-            address: signerAddress
+            address: signerAddress,
+            token: submitChallenge.token
         })
 
         // setAddress(signerAddress);

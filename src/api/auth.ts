@@ -3,6 +3,7 @@ import api from "@/utils/api";
 interface AuthResponse {
     msg: string;
     success?: boolean;
+    token?: string
 }
 
 export const getNonce = async (address: string): Promise<AuthResponse> => {
