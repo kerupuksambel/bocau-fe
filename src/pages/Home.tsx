@@ -44,8 +44,6 @@ const Home = () => {
             return;
         }
 
-        console.log(submitChallenge)
-
         if(!submitChallenge.token) {
             toast({
                 title: 'Error',

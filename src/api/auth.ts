@@ -21,3 +21,9 @@ export const signNonce = async (signedNonce: string, address: string): Promise<A
 
     return response.data
 }
+
+export const getPubkey = async(): Promise<AuthResponse> => {
+    const response = await api.get('/api/auth/pubkey')
+
+    return response.data
+}

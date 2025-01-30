@@ -1,11 +1,7 @@
+import { AuthProps } from "@/types/auth";
 import { create } from "zustand";
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-interface AuthProps {
-    isAuthenticated: boolean,
-    address: string,
-    token: string,
-}
 
 interface AuthStoreProps {
     auth: AuthProps,
