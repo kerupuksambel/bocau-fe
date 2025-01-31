@@ -1,4 +1,5 @@
 import { getNonce, signNonce } from "@/api/auth";
+import { Button } from "@/components/ui/shadcn/button";
 import { useToast } from "@/hooks/use-toast";
 import useAuthStore from "@/stores/authStore";
 import { Icon } from '@iconify-icon/react';
@@ -65,9 +66,9 @@ const LoginButton = () => {
     }
 
     return (
-        <button onClick={handleMetamaskAuth} className='bg-white text-primary p-3 rounded-md flex items-center gap-2'>
-            <Icon icon="token-branded:metamask" className='text-2xl'/> Login
-        </button>
+        <Button onClick={handleMetamaskAuth} variant={'secondary'}>
+            Login <Icon icon="token-branded:metamask" className='text-2xl'/>
+        </Button>
     )
 }
 
