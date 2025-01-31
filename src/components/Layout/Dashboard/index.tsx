@@ -1,11 +1,10 @@
 import { AuthProvider } from "@/context/AuthContext"
+import Navbar from "./Navbar"
 
 const DashboardLayout = ({children}: LayoutProps) => {
     return (
         <AuthProvider>
-            <div className="fixed top-0 w-full h-[80px] bg-yellow-300">
-                Dashboard Header
-            </div>
+            <Navbar/>
             <div className="mt-[80px]">
                 {children}
             </div>
