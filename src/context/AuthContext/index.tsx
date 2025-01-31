@@ -4,7 +4,7 @@ import { importSPKI, jwtVerify } from 'jose'
 import React, { createContext, useEffect, useState } from "react"
 import { AuthProps } from "@/types/auth"
 import { getPubkey } from "@/api/auth"
-import { JOSEError, JWTClaimValidationFailed, JWTExpired, JWTInvalid } from "jose/errors"
+import { JWTExpired } from "jose/errors"
 import { toast } from "@/hooks/use-toast"
 
 
@@ -26,10 +26,9 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
         auth.setAuth({isAuthenticated: false, address: '', token: ''})
     }
     
-    
     useEffect(() => {
         if(!auth.auth.isAuthenticated) {
-            // destroyAuth();
+            destroyAuth();
             navigate('/')
             return;
         }
@@ -44,10 +43,10 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                         description: 'Your session has expired. Please re-login.',
                         variant: 'destructive'
                     })
-                }else if(e instanceof JWTInvalid) {
+                }else{
                     toast({
                         title: 'Error',
-                        description: 'Invalid JWT. Please re-login.',
+                        description: `Something went wrong. Please re-login. Detail : ${e.constructor.name}`,
                         variant: 'destructive'
                     })
                 }
@@ -64,7 +63,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     return (
         <AuthContext.Provider value={{auth: auth.auth, destroyAuth: destroyAuth, isLoading: true}}>
-            {children}
+            {!isLoading && children}
         </AuthContext.Provider>
     )
 }

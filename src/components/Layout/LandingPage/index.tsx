@@ -1,9 +1,12 @@
+import useAuthStore from "@/stores/authStore"
+import Navbar from "./Navbar"
+
 const LandingPageLayout = ({children}: LayoutProps) => {
+    const auth = useAuthStore();
+    
     return (
         <>
-            <div className="fixed top-0 w-full h-[80px] bg-primary text-white">
-                LP Header
-            </div>
+        <Navbar isLogged={auth.auth.isAuthenticated} />
             <div className="mt-[80px] min-h-[100vh]">
                 {children}
             </div>
