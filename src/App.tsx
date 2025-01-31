@@ -5,8 +5,13 @@ import LandingPageLayout from './components/Layout/LandingPage';
 import { Toaster } from './components/UI/shadcn/toaster';
 import Dashboard from './pages/user/Dashboard';
 import DashboardLayout from './components/Layout/Dashboard';
+import { MetaMaskInpageProvider } from '@metamask/providers';
 
-
+declare global {
+  interface Window {
+    ethereum?: MetaMaskInpageProvider;
+  }
+}
 function App() {
   // TODO: routes separated in a new dedicated file
   const routes = [
