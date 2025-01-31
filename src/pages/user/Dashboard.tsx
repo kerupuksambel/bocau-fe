@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/shadcn/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
+import BidList from "@/components/page/user/Dashboard/BidList";
+import DashboardCard from "@/components/page/user/Dashboard/DashboardCard";
 import useAuthStore from "@/stores/authStore";
 
 const Dashboard = () => {
@@ -11,28 +11,33 @@ const Dashboard = () => {
                 Welcome, <b>{auth.auth.address}</b>.
             </h1> 
             <div className="my-6 space-3">
-                <Card className="w-1/4">
-                    <CardHeader>
-                        <CardTitle>Your Bids</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                    <div className="flex items-center justify-between space-x-4">
-                        <div className="flex flex-nowrap space-x-4 items-center">
-                            <img src={"https://placehold.co/1920x1080.png?text=35"} className="w-10 h-10 rounded-full"/>
-                            <div>
-                                <p className="text-sm font-medium leading-none">Contoh gambar</p>
-                                <p className="text-sm text-muted-foreground">Digital media</p>
-                            </div>
-                        </div>
-                        <div>
-                            0.00001 ETH
-                        </div>
+                <DashboardCard
+                    className="w-1/3"
+                    title="Your Bids"
+                    buttonName="See more"
+                    buttonAction={() => {}}
+                >
+                    <div className="space-y-4">
+                        <BidList
+                            name="Gambar 1"
+                            type="Digital media"
+                            price={0.00001}
+                            time="05:11"
+                        />
+                        <BidList
+                            name="Gambar 2"
+                            type="Digital media"
+                            price={0.0001}
+                            time="01:12:11"
+                        />
+                        <BidList
+                            name="Gambar 1"
+                            type="Digital media"
+                            price={0.00001}
+                            time="02:10:09"
+                        />
                     </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-center">
-                        <Button>See More</Button>
-                    </CardFooter>
-                </Card>
+                </DashboardCard>
             </div>
         </div>
     )
