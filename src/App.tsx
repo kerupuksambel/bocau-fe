@@ -1,10 +1,10 @@
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import LandingPageLayout from './components/Layout/LandingPage';
-import { Toaster } from './components/UI/shadcn/toaster';
+import LandingPageLayout from './components/layout/LandingPage';
+import { Toaster } from './components/ui/shadcn/toaster';
 import Dashboard from './pages/user/Dashboard';
-import DashboardLayout from './components/Layout/Dashboard';
+import DashboardLayout from './components/layout/Dashboard';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 
 declare global {

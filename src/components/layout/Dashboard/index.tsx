@@ -5,7 +5,7 @@ const DashboardLayout = ({children}: LayoutProps) => {
     return (
         <AuthProvider>
             <Navbar/>
-            <div className="mt-[80px]">
+            <div className="mt-[80px] p-2">
                 {children}
             </div>
         </AuthProvider>

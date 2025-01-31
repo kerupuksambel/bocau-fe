@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/shadcn/button";
+import { toast } from "@/hooks/use-toast";
 import useAuthStore from "@/stores/authStore";
 import { Icon } from "@iconify-icon/react"
 import { useNavigate } from "react-router-dom";
@@ -13,6 +15,10 @@ const Navbar = () => {
     const handleLogout = () => {
         destroyAuth()
         navigate('/')
+        toast({
+            title: 'Success',
+            description: 'You have logged out successfully.',
+        })
         return;
     }
 
@@ -24,8 +30,8 @@ const Navbar = () => {
 
                 {/* Middle: Main Menu */}
                 <ul className="hidden md:flex space-x-6">
-                    <li><a href="#features" className="hover:underline">Items</a></li>
                     <li><a href="#pricing" className="hover:underline">Auctions</a></li>
+                    <li><a href="#features" className="hover:underline">Items</a></li>
                     <li><a href="#about" className="hover:underline">History</a></li>
                 </ul>
             </div>
@@ -33,9 +39,9 @@ const Navbar = () => {
             {/* Right: Logout Button */}
             <div className="flex flex-nowrap items-center space-x-8">
                 <p>Welcome, <b>{auth.auth.address}</b></p>
-                <button onClick={handleLogout} className="bg-red-600 text-white font-bold py-2 px-4 rounded">
-                    <Icon icon="material-symbols:logout-rounded" />
-                </button>
+                <Button variant="destructive" onClick={handleLogout}>
+                    <Icon icon="ic:baseline-logout" /> Logout
+                </Button>
             </div>
         </nav>
     )
