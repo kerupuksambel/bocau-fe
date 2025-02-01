@@ -50,7 +50,11 @@ const LoginButton = () => {
         auth.setAuth({
             isAuthenticated: true,
             address: signerAddress,
-            token: submitChallenge.token
+            token: submitChallenge.token,
+            account: {
+                address: signerAddress,
+                wei: (await provider.getBalance(signerAddress)),
+            }
         })
     
         // setAddress(signerAddress);

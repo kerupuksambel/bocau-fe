@@ -23,7 +23,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const destroyAuth = () => {
-        auth.setAuth({isAuthenticated: false, address: '', token: ''})
+        auth.setAuth({isAuthenticated: false, address: '', token: '', account: null})
     }
     
     useEffect(() => {

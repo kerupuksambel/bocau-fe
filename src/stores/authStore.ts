@@ -28,10 +28,17 @@ const useAuthStore = create<AuthStoreProps>()(
                 isAuthenticated: false,
                 address: '',
                 token: '',
+                account: null
             },
             setAuth: (newAuth) => {
                 set(() => ({
-                    auth: newAuth,
+                    auth: {
+                        ...newAuth,
+                        account: newAuth.account ? {
+                            address: newAuth.account.address,
+                            wei: newAuth.account.wei.toString()
+                        } : null
+                    },
                 }));
             },
         }),

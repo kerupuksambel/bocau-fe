@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/shadcn/button";
 import { toast } from "@/hooks/use-toast";
 import useAuthStore from "@/stores/authStore";
 import { Icon } from "@iconify-icon/react"
+import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 
 
@@ -10,7 +11,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const auth = useAuthStore();
     const destroyAuth = () => {
-        auth.setAuth({isAuthenticated: false, address: '', token: ''})
+        auth.setAuth({isAuthenticated: false, address: '', token: '', account: null})
     }
     const handleLogout = () => {
         destroyAuth()
@@ -38,7 +39,7 @@ const Navbar = () => {
 
             {/* Right: Logout Button */}
             <div className="flex flex-nowrap items-center space-x-8">
-                <p>Welcome, <b>{auth.auth.address}</b></p>
+                <p>Balance : <b>{ethers.formatEther(auth.auth.account?.wei ?? 0)} ETH</b></p>
                 <Button variant="destructive" onClick={handleLogout}>
                     <Icon icon="ic:baseline-logout" /> Logout
                 </Button>
