@@ -11,21 +11,23 @@ interface CardProps {
 
 const DashboardCard = ({title, buttonName, buttonAction, children, className}: CardProps) => {
     return (
-        <Card className={`w-1/4 ${className}`}>
-            <CardHeader>
-                <CardTitle>{title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-                {children}
-            </CardContent>
-            {
-                !buttonAction ? <></> : (
-                    <CardFooter className="flex justify-center">
-                        <Button onClick={buttonAction}>{buttonName ?? "See more"}</Button>
-                    </CardFooter>
-                )
-            }
-        </Card>
+        <div className={`w-1/4 ${className} px-3`}>
+            <Card>
+                <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {children}
+                </CardContent>
+                {
+                    !buttonAction ? <></> : (
+                        <CardFooter className="flex justify-center">
+                            <Button onClick={buttonAction}>{buttonName ?? "See more"}</Button>
+                        </CardFooter>
+                    )
+                }
+            </Card>
+        </div>
     )
 }
 

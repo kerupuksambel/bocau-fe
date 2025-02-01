@@ -10,11 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
     const navigate = useNavigate();
     const auth = useAuthStore();
-    const destroyAuth = () => {
-        auth.setAuth({isAuthenticated: false, address: '', token: '', account: null})
-    }
     const handleLogout = () => {
-        destroyAuth()
+        auth.destroyAuth()
         navigate('/')
         toast({
             title: 'Success',

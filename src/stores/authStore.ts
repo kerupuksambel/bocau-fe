@@ -3,9 +3,10 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from 'zustand/middleware';
 
 
-interface AuthStoreProps {
+export interface AuthStoreProps {
     auth: AuthProps,
-    setAuth: (auth: AuthProps) => void
+    setAuth: (auth: AuthProps) => void,
+    destroyAuth: () => void
 }
 
 // const useAuthStore = create<AuthStoreProps>((set) => ({
@@ -41,6 +42,16 @@ const useAuthStore = create<AuthStoreProps>()(
                     },
                 }));
             },
+            destroyAuth: () => {
+                set(() => ({
+                    auth: {
+                        isAuthenticated: false,
+                        address: '',
+                        token: '',
+                        account: null
+                    },
+                }));
+            }
         }),
         {
             name: 'auth-storage',

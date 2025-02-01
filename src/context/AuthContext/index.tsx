@@ -22,13 +22,13 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const auth = useAuthStore()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const destroyAuth = () => {
-        auth.setAuth({isAuthenticated: false, address: '', token: '', account: null})
-    }
+    // const destroyAuth = () => {
+    //     auth.setAuth({isAuthenticated: false, address: '', token: '', account: null})
+    // }
     
     useEffect(() => {
         if(!auth.auth.isAuthenticated) {
-            destroyAuth();
+            auth.destroyAuth();
             navigate('/')
             return;
         }
@@ -51,7 +51,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                     })
                 }
                 navigate('/');
-                destroyAuth();
+                auth.destroyAuth();
                 return;
             }finally{
                 setIsLoading(false)
@@ -62,7 +62,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{auth: auth.auth, destroyAuth: destroyAuth, isLoading: true}}>
+        <AuthContext.Provider value={{auth: auth.auth, destroyAuth: auth.destroyAuth, isLoading: true}}>
             {!isLoading && children}
         </AuthContext.Provider>
     )
